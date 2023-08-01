@@ -1,0 +1,33 @@
+version: "3"
+services:
+  pihole:
+    image: pihole/pihole:${PIHOLE_VERSION:-latest}
+    container_name: ${COMPOSE_PROJECT_NAME}_pihole
+    network_mode: host
+    restart: always
+    environment:
+      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
+      - WEB_PORT=${WEB_PORT:-8080}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - INTERFAZ=${INTERFAZ}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - WEBPASSWORD=${WEBPASSWORD}
+      - TZ=${TZ:-UTC}
+    volumes:
+      - pihole-data:/etc/pihole
+      - pihole-dnsmasq:/etc/dnsmasq.d
+    
+volumes:
+  pihole-data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${PIHOLE_DATA_VOLUME_PATH}"
+
+  pihole-dnsmasq:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${PIHOLE_DNSMASQ_VOLUME_PATH}"
