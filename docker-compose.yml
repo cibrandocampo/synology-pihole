@@ -1,33 +1,34 @@
-version: "3"
+version: "3.8"
+
 services:
   pihole:
     image: pihole/pihole:${PIHOLE_VERSION:-latest}
-    container_name: ${COMPOSE_PROJECT_NAME}_pihole
-    network_mode: host
-    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME:-pihole}
+    network_mode: host  
+    restart: unless-stopped
     environment:
-      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
-      - WEB_PORT=${WEB_PORT:-8080}
-      - VIRTUAL_HOST=${VIRTUAL_HOST}
-      - INTERFAZ=${INTERFAZ}
-      - ADMIN_EMAIL=${ADMIN_EMAIL}
-      - WEBPASSWORD=${WEBPASSWORD}
-      - TZ=${TZ:-UTC}
+      - TZ=${TZ:-UTC}  # Set the timezone
+      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}  # Local IP to bind Pi-hole to
+      - WEB_PORT=${WEB_PORT:-8080}  # Port for the admin web interface
+      - VIRTUAL_HOST=${VIRTUAL_HOST}  # Virtual host name for Pi-hole
+      - INTERFACE=${INTERFACE}  # Network interface to bind to
+      - ADMIN_EMAIL=${ADMIN_EMAIL}  # Admin contact email
+      - WEBPASSWORD=${WEBPASSWORD}  # Admin panel password
     volumes:
       - pihole-data:/etc/pihole
       - pihole-dnsmasq:/etc/dnsmasq.d
-    
+
 volumes:
   pihole-data:
     driver: local
     driver_opts:
       type: "none"
       o: "bind"
-      device: "${PIHOLE_DATA_VOLUME_PATH}"
+      device: "${PIHOLE_DATA_VOLUME_PATH}"  # Path for Pi-hole configuration persistence
 
   pihole-dnsmasq:
     driver: local
     driver_opts:
       type: "none"
       o: "bind"
-      device: "${PIHOLE_DNSMASQ_VOLUME_PATH}"
+      device: "${PIHOLE_DNSMASQ_VOLUME_PATH}"  # Path for DNS settings persistence

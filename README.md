@@ -1,44 +1,56 @@
-# Pi-hole on Synology with Docker Compose
+# Pi-hole on Synology with Docker Compose  
 
-This repository contains a Docker Compose file to run Pi-hole on a Synology NAS using the Container Manager application. Pi-hole is a network-wide ad blocker that acts as a DNS sinkhole, blocking ads and trackers before they reach your devices.
+This repository provides a **Docker Compose** configuration for running **Pi-hole** on a **Synology NAS** using the **Container Manager** application. **Pi-hole** is a network-wide ad blocker that functions as a **DNS sinkhole**, preventing ads and trackers from reaching your devices.  
 
-## Prerequisites
+## Prerequisites  
 
-- A Synology NAS with DSM > 7.0 installed and properly configured.
-- The Synology Container Manager application installed and running.
+Before proceeding, ensure you have:  
 
-## Configuration/Customization
+- A **Synology NAS** with **DSM 7.0 or later** installed.  
+- The **Container Manager** application installed and running.  
 
-If you need to modify the configuration of the Unifi Controller, you can edit the `.env` file you copied to the NAS before importing the project into the Container Manager. This allows you to customize the container's behavior according to your specific requirements.
+## Configuration & Customization  
 
-## Installation
+To customize Pi-hole’s configuration, edit the `.env` file before importing the project into **Container Manager**. This allows you to tailor the container's settings to your specific needs.  
 
-1. Copy the `docker-compose.yml` and `.env` files to a folder on your Synology NAS. You can do this using the command line, file manager, or any other preferred method.
+## Installation  
 
-2. Open the Synology Container Manager application from the DSM desktop.
+Follow these steps to deploy Pi-hole using **Docker Compose** on your Synology NAS:  
 
-3. In the Container Manager, click on "Import" to create a new project from your Docker Compose files.
+1. **Copy project files**:  
+   Copy the `docker-compose.yml` and `.env` files to a folder on your **Synology NAS**. This can be done via SSH, the file manager, or any preferred method.  
 
-4. Browse to the folder where you copied the `docker-compose.yml` and `.env` files.
+2. **Open Container Manager**:  
+   - Launch the **Container Manager** application from the **DSM** interface.  
+   - Click **"Import"** to create a new project from Docker Compose files.  
 
-5. Select the `docker-compose.yml` file and click "Next."
+3. **Select project files**:  
+   - Browse to the folder where you copied the `docker-compose.yml` and `.env` files.  
+   - Select the `docker-compose.yml` file and click **"Next"**.  
 
-6. The Container Manager will automatically detect the `.env` file associated with the Docker Compose and load the environment variables.
+4. **Review settings**:  
+   - The **Container Manager** will automatically detect the associated `.env` file and load environment variables.  
+   - Review the imported configurations and make any necessary adjustments.  
 
-7. Review the settings and configurations imported from the `docker-compose.yml` and `.env` files. Make any necessary adjustments if needed.
+5. **Deploy Pi-hole**:  
+   - Click **"Apply"** to start the deployment.  
 
-8. Click "Apply" to start the deployment of Pi-hole based on the provided settings.
+6. **Access the Pi-hole web interface**:  
+   - Open a web browser and navigate to:  
+     ```
+     http://SYNOLOGY_IP:9003
+     ```  
+   - Replace `SYNOLOGY_IP` with your **Synology NAS’s local IP address**.  
+   - Ensure the port matches the one defined in the `.env` file.  
 
-9. Once the container is deployed, access the Pi-hole web interface through your web browser: http://SYNOLOGY_IP:9003
+7. **Complete setup**:  
+   - Follow the Pi-hole setup wizard to configure DNS and ad-blocking preferences.  
 
-Replace `SYNOLOGY_IP` with the local IP address of your Synology, and use the port configure in the `.env` file.
+## Troubleshooting & Contributions  
 
-10. Follow the Pi-hole setup wizard to configure your DNS and ad-blocking preferences.
+- If you encounter issues or have suggestions, feel free to reach out at **[hello@cibran.es](mailto:hello@cibran.es)**.  
+- Contributions are welcome! Submit a **pull request** to improve this project.  
 
-## Issues and Contributions
+## License  
 
-If you encounter any problems or have any suggestions, feel free to contact me via (hello@cibran.es). You can also contribute to improving this project by submitting pull requests.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the **[MIT License](LICENSE)**.
